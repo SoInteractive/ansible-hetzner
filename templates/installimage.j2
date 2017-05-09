@@ -1,0 +1,32 @@
+#{{ ansible_managed }}
+{% for drive in hetzner_provision_drives %}
+DRIVE{{ loop.index }} /dev/{{ drive }}
+{% endfor %}
+
+SWRAID {{ 1 if hetzner_provision_raid_enable else 0 }}
+SWRAIDLEVEL {{ hetzner_provision_raid_type |defaults('1') }}
+
+BOOTLOADER grub
+HOSTNAME {{ hetzner_provision_hostname }}
+
+{% for partition in hetzner_provision_partitions %}
+{{ partition }}
+{% endfor %}
+
+{% for partition in hetzner_provision_partitions %}
+PART {{ partition.mount }} {{ partition.type }} {{ partition.size }}
+{% endfor %}
+
+{% for volume in hetzner_provision_volumes %}
+LV {{ volume.group }} {{ volume.name }} {{ volume.mount }} {{ volume.type }} {{ volume.size }}
+{% endfor %}
+
+{% if hetzner_provision_image == "" %}
+{%   if hetzner_provision_os == "centos" %}
+IMAGE /root/.oldroot/nfs/install/../images/CentOS-72-64-minimal.tar.gz
+{%   else %}
+IMAGE /root/.oldroot/nfs/install/../images/Ubuntu-1604-xenial-64-minimal.tar.gz
+{%   endif %}
+{% else %}
+IMAGE {{ hetzner_provision_install_image }}
+{% endif %}
