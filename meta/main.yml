@@ -9,9 +9,9 @@ galaxy_info:
 #  - name: Ubuntu
 #    versions:
 #    - xenial
-#  - name: EL
-#    versions:
-#    - 7
+  - name: GenericUNIX
+    versions:
+    - all
   galaxy_tags:
   - provisioning
   - hetzner
