@@ -39,4 +39,3 @@ hetzner_provision_volumes: []
 #      mount: /var/log
 #      type: xfs
 #      size: 5G
-

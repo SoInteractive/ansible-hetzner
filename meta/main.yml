@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Pawel Krupa
+  description: Provision new server in Hetzer DC
+  company: Sointeractive
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+  - name: EL
+    versions:
+    - 7
+  galaxy_tags:
+  - provisioning
+  - hetzner
+
+dependencies: []

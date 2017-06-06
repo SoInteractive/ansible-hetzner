@@ -1,0 +1,12 @@
+---
+ansible:
+  playbook: tests/playbook.yml
+driver:
+  name: docker
+verifier:
+  name: testinfra
+docker:
+  containers:
+    - name: hetzner-xenial
+      image: ubuntu
+      image_version: xenial
