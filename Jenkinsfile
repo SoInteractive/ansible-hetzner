@@ -43,6 +43,12 @@ pipeline {
     }
     success {
       mattermostSend color: 'good', message: "No. ${BUILD_NUMBER} test of ${JOB_NAME} has finished successfully. <${RUN_DISPLAY_URL}|More information.>"
+      mergeGithubPullRequest {
+        mergeComment('merged by Jenkins')
+        disallowOwnCode()
+        failOnNonMerge()
+        deleteOnMerge()
+      }
     }
     failure {
       mattermostSend color: 'danger', message: "No. ${BUILD_NUMBER} test of ${JOB_NAME} has failed. <${RUN_DISPLAY_URL}|More information.>"
