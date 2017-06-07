@@ -14,11 +14,6 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   stages {
-    stage('show envs') {
-      steps {
-        sh 'env'
-      }
-    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
@@ -47,10 +42,10 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "Job ${JOB_NAME} ${BUILD_NUMBER} has finished successfully (<${BUILD_URL}|Open>)"
+      mattermostSend color: 'good', message: "No. ${BUILD_NUMBER} test of ${JOB_NAME} has finished successfully. <${RUN_DISPLAY_URL}|More information.>"
     }
     failure {
-      mattermostSend color: 'danger', message: "Job ${JOB_NAME} ${BUILD_NUMBER} has failed(<${BUILD_URL}|Open>)"
+      mattermostSend color: 'danger', message: "No. ${BUILD_NUMBER} test of ${JOB_NAME} has failed. <${RUN_DISPLAY_URL}|More information.>"
     }
   }
 }
