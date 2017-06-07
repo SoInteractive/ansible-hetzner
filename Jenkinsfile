@@ -14,6 +14,11 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   stages {
+    stage('show envs') {
+      steps {
+        sh 'env'
+      }
+    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
