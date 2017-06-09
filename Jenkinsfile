@@ -35,6 +35,15 @@ pipeline {
         sh 'molecule verify'
       }
     }
+    stage('Accept code'){
+      when { branch "PR-*" }
+      mergeGithubPullRequest {
+        mergeComment('merged by Jenkins')
+        disallowOwnCode()
+        failOnNonMerge()
+        deleteOnMerge()
+      }
+    }
   }
 
   post {
@@ -42,10 +51,10 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "No. ${BUILD_NUMBER} test of ${JOB_NAME} has finished successfully. <${RUN_DISPLAY_URL}|More information.>"
+      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
     }
     failure {
-      mattermostSend color: 'danger', message: "No. ${BUILD_NUMBER} test of ${JOB_NAME} has failed. <${RUN_DISPLAY_URL}|More information.>"
+      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} failed in ${currentBuild.durationString}."
     }
   }
 }
