@@ -35,6 +35,15 @@ pipeline {
         sh 'molecule verify'
       }
     }
+    stage('Test msg'){
+      steps {
+        echo "${BUILD_USER_ID}"
+        echo "${BUILD_NUMBER}"
+        echo "${RUN_DISPLAY_URL}"
+        echo "${currentBuild.durationString}"
+        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
+      }
+    }
 /*    stage('Accept code'){
       when { branch "PR-*" }
       steps {
@@ -53,10 +62,10 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully."
+      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
     }
     failure {
-      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} failed in ${currentBuild.durationString}."
+      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} failed in ${currentBuild.durationString}."
     }
   }
 }
