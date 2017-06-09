@@ -19,7 +19,7 @@ pipeline {
   stages {
     stage('groovy string manipulation'){
       steps {
-        echo "${currentBuild.durationString - 'and counting'}"
+        echo "${currentBuild.durationString.replaceAll('and counting','')}"
         echo "${GIT_AUTHOR_EMAIL}"
       }
     }
