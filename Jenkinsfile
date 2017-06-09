@@ -19,7 +19,8 @@ pipeline {
   stages {
     stage('groovy string manipulation'){
       steps {
-        echo "${currentBuild.durationString.minus(' and counting')}"
+        echo "${currentBuild.durationString.take(currentBuild.durationString.lastIndexOf('a'))}"
+        echo "${GIT_AUTHOR_EMAIL}"
       }
     }
     stage('Check syntax') {
@@ -64,7 +65,7 @@ pipeline {
       mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_AUTHOR_EMAIL} finished successfully in ${currentBuild.durationString.minus(' and counting')}."
     }
     failure {
-      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} failed in ${currentBuild.duration}ms."
+      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} failed in ${currentBuild.duration.minus()}ms."
     }
   }
 }
