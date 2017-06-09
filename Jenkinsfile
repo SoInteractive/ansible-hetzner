@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('Test msg'){
       steps {
-        echo "${CHANGE_AUTHOR}"
+        sh 'printenv'
         echo "${BUILD_NUMBER}"
         echo "${RUN_DISPLAY_URL}"
         echo "${currentBuild.durationString}"
