@@ -13,10 +13,12 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '30'))
     timeout(time: 15, unit: 'MINUTES')
   }
+  environment {
+    COMMITER = sh( script: "git show -s --pretty=%an", returnStatus: true )
+  }
   stages {
     stage('Test msg'){
       steps {
-        COMMITER = sh( script: "$(git show -s --pretty=%an)", returnStatus: true )
         echo "${COMMITER}"
         echo "${BUILD_NUMBER}"
         echo "${RUN_DISPLAY_URL}"
