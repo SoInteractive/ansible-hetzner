@@ -16,7 +16,6 @@ pipeline {
   stages {
     stage('Test msg'){
       steps {
-        echo "${BUILD_USER_ID}"
         echo "${BUILD_NUMBER}"
         echo "${RUN_DISPLAY_URL}"
         echo "${currentBuild.durationString}"
