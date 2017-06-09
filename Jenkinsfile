@@ -37,11 +37,13 @@ pipeline {
     }
     stage('Accept code'){
       when { branch "PR-*" }
-      mergeGithubPullRequest {
-        mergeComment('merged by Jenkins')
-        disallowOwnCode()
-        failOnNonMerge()
-        deleteOnMerge()
+      steps {
+        mergeGithubPullRequest {
+          mergeComment('merged by Jenkins')
+          disallowOwnCode()
+          failOnNonMerge()
+          deleteOnMerge()
+        }
       }
     }
   }
