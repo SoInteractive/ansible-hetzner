@@ -13,14 +13,17 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '30'))
     timeout(time: 15, unit: 'MINUTES')
   }
+  environment {
+    COMMITER = "$(git show -s --pretty=%an)"
+  }
   stages {
     stage('Test msg'){
       steps {
-        sh 'printenv'
+        echo "${COMMITER}"
         echo "${BUILD_NUMBER}"
         echo "${RUN_DISPLAY_URL}"
         echo "${currentBuild.durationString}"
-        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${CHANGE_AUTHOR} finished successfully in ${currentBuild.durationString}."
+        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${COMMITER} finished successfully in ${currentBuild.durationString}."
       }
     }
     stage('Check syntax') {
