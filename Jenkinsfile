@@ -16,10 +16,11 @@ pipeline {
   stages {
     stage('Test msg'){
       steps {
+        echo "${CHANGE_AUTHOR}"
         echo "${BUILD_NUMBER}"
         echo "${RUN_DISPLAY_URL}"
         echo "${currentBuild.durationString}"
-        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
+        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${CHANGE_AUTHOR} finished successfully in ${currentBuild.durationString}."
       }
     }
     stage('Check syntax') {
