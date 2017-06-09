@@ -35,7 +35,7 @@ pipeline {
         sh 'molecule verify'
       }
     }
-    stage('Accept code'){
+/*    stage('Accept code'){
       when { branch "PR-*" }
       steps {
         mergeGithubPullRequest {
@@ -45,7 +45,7 @@ pipeline {
           deleteOnMerge()
         }
       }
-    }
+    }*/
   }
 
   post {
@@ -53,7 +53,7 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
+      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully."
     }
     failure {
       mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} failed in ${currentBuild.durationString}."
