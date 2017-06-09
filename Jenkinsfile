@@ -17,6 +17,11 @@ pipeline {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
   }
   stages {
+    stage('groovy string manipulation'){
+      steps {
+        echo "${currentBuild.durationString.minus(' and counting')}"
+      }
+    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
