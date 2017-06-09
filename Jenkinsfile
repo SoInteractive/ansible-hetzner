@@ -15,6 +15,7 @@ pipeline {
   }
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
+    GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
   }
   stages {
     stage('Check syntax') {
@@ -56,10 +57,10 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} finished successfully in ${currentBuild.durationString.replaceAll('and counting','')}"
+      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <${GIT_URL}|${JOB_NAME}> branch by ${GIT_COMMITER} finished successfully in ${currentBuild.durationString.replaceAll('and counting','')}"
     }
     failure {
-      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} failed in ${currentBuild.durationString.replaceAll('and counting','')}"
+      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <${GIT_URL}|${JOB_NAME}> branch by ${GIT_COMMITER} failed in ${currentBuild.durationString.replaceAll('and counting','')}"
     }
   }
 }
