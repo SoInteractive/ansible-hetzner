@@ -14,6 +14,15 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   stages {
+    stage('Test msg'){
+      steps {
+        echo "${BUILD_USER_ID}"
+        echo "${BUILD_NUMBER}"
+        echo "${RUN_DISPLAY_URL}"
+        echo "${currentBuild.durationString}"
+        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
+      }
+    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
@@ -33,15 +42,6 @@ pipeline {
       steps {
         sh 'molecule idempotence'
         sh 'molecule verify'
-      }
-    }
-    stage('Test msg'){
-      steps {
-        echo "${BUILD_USER_ID}"
-        echo "${BUILD_NUMBER}"
-        echo "${RUN_DISPLAY_URL}"
-        echo "${currentBuild.durationString}"
-        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${BUILD_USER_ID} finished successfully in ${currentBuild.durationString}."
       }
     }
 /*    stage('Accept code'){
