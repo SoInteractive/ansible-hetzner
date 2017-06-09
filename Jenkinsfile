@@ -16,11 +16,12 @@ pipeline {
   stages {
     stage('Test msg'){
       steps {
-        echo "$(git show -s --pretty=%an)"
+        COMMITER = sh( script: "$(git show -s --pretty=%an)", returnStatus: true )
+        echo "${COMMITER}"
         echo "${BUILD_NUMBER}"
         echo "${RUN_DISPLAY_URL}"
         echo "${currentBuild.durationString}"
-        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by $(git show -s --pretty=%an) finished successfully in ${currentBuild.durationString}."
+        echo "Pipeline <${RUN_DISPLAY_URL}|${BUILD_NUMBER}> of branch ${JOB_NAME} by ${COMMITER} finished successfully in ${currentBuild.durationString}."
       }
     }
     stage('Check syntax') {
