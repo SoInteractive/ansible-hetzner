@@ -17,11 +17,6 @@ pipeline {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
   }
   stages {
-    stage('Test msg'){
-      steps {
-        echo "${COMMITER}"
-      }
-    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
@@ -61,10 +56,10 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} finished successfully in ${currentBuild.durationString}."
+      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} finished successfully in ${currentBuild.duration}ms."
     }
     failure {
-      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} failed in ${currentBuild.durationString}."
+      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of branch ${JOB_NAME} by ${GIT_COMMITER} failed in ${currentBuild.duration}ms."
     }
   }
 }
