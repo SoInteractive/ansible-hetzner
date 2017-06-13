@@ -20,7 +20,7 @@ pipeline {
   stages {
     stage('Show envs'){
       steps {
-        echo "${JOB_NAME.split('/').add(2,'tree').join('/')}"
+        echo "${JOB_NAME.split('/')}"
       }
     }
 
