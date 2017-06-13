@@ -8,21 +8,6 @@ pipeline {
         permitAll()
         autoCloseFailedPullRequests()
 //        whiteListTargetBranches(['master','test', 'test2'])
-        extensions {
-            commitStatus {
-                addTestResults(true)
-                statusUrl('http://mystatussite.com/prs')
-                completedStatus('SUCCESS', 'All is well')
-                completedStatus('FAILURE', 'Something went wrong. Investigate!')
-                    completedStatus('PENDING', 'still in progress...')
-                completedStatus('ERROR', 'Something went really wrong. Investigate!')
-            }
-            buildStatus {
-                completedStatus('SUCCESS', 'There were no errors, go have a cup of coffee...')
-                completedStatus('FAILURE', 'There were errors, for info, please see...')
-                completedStatus('ERROR', 'There was an error in the infrastructure, please contact...')
-            }
-        }
      }
   }
   agent {
