@@ -21,7 +21,7 @@ pipeline {
   }
   stages {
     stage('Show variables') {
-      stepse {
+      steps {
         sh 'env | sort'
       }
     }
