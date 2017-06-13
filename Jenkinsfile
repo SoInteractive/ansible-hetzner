@@ -48,8 +48,8 @@ pipeline {
     stage('Merge Pull Request'){
       when { branch "PR-*" }
       steps {
-          withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'ACCESS_TOKEN_PASSWORD']]) {
-            sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}' -c cookieFile -b cookieFile https://github.com/repos/SoInteractive/${JOB_NAME.split('/')[1]}/pulls/${BRANCH_NAME.replaceFirst('PR-', "")}/merge?access_token=${ACCESS_TOKEN_PASSWORD}"
+        withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
+          sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}' https://api.github.com/repos/SoInteractive/${JOB_NAME.split('/')[1]}/pulls/${BRANCH_NAME.replaceFirst('PR-', "")}/merge?access_token=${GITHUB_TOKEN}"
         }
       }
     }
