@@ -39,17 +39,17 @@ pipeline {
         sh 'molecule verify'
       }
     }
-/*  stage('Merge Pull Request'){
+  stage('Merge Pull Request'){
       when { branch "PR-*" }
       steps {
         mergeGithubPullRequest {
           mergeComment('merged by Jenkins')
-          disallowOwnCode()
+#          disallowOwnCode()
           failOnNonMerge()
-          deleteOnMerge()
+#          deleteOnMerge()
         }
       }
-    }*/
+    }
 /*  stage('Import to ansible galaxy'){
       when { branch "PR-*" }
       steps {
