@@ -17,14 +17,13 @@ pipeline {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
     CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
-    GITURL = GIT_URL.replaceFirst( "^http://github.com/", "")
-    PRLINK = env.GITURL.replaceAll( /.git/, "")​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+    REPO_NAME = sh ( script: "basename `git rev-parse --show-toplevel`", returnStdout: true).trim()
+    ORG_NAME = sh ( script: " echo $GIT_URL | cut -f 4 -d'/'", return Stdout: true).trin()
   }
   stages {
     stage('Check syntax') {
       steps {
         sh 'env | sort'
-        sh 'echo $CHANGE_ID'
         sh 'molecule syntax'
       }
     }
