@@ -44,9 +44,9 @@ pipeline {
       steps {
         mergeGithubPullRequest {
           mergeComment('merged by Jenkins')
-#          disallowOwnCode()
+//          disallowOwnCode()
           failOnNonMerge()
-#          deleteOnMerge()
+//          deleteOnMerge()
         }
       }
     }
