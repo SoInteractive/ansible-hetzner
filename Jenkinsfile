@@ -39,7 +39,7 @@ pipeline {
         sh 'molecule verify'
       }
     }
-/*  stage('Accept code'){
+/*  stage('Merge Pull Request'){
       when { branch "PR-*" }
       steps {
         mergeGithubPullRequest {
@@ -50,7 +50,7 @@ pipeline {
         }
       }
     }*/
-/*  stage('Update ansible-galaxy'){
+/*  stage('Import to ansible galaxy'){
       when { branch "PR-*" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: 'github-access-token', variable: 'GITHUB_TOKEN']]) {
@@ -69,7 +69,7 @@ pipeline {
       mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <https://github.com/SoInteractive/${JOB_NAME.split('/')[1]}/tree/${BRANCH_NAME}|${JOB_NAME}> branch by ${GIT_COMMITER} finished successfully in ${currentBuild.durationString.replaceAll('and counting','')}"
     }
     failure {
-      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <${GIT_URL}|${JOB_NAME}> branch by ${GIT_COMMITER} failed in ${currentBuild.durationString.replaceAll('and counting','')}"
+      mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <https://github.com/SoInteractive/${JOB_NAME.split('/')[1]}/tree/${BRANCH_NAME}|${JOB_NAME}> branch by ${GIT_COMMITER} failed in ${currentBuild.durationString.replaceAll('and counting','')}"
     }
   }
 }
