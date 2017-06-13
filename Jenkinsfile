@@ -18,11 +18,11 @@ pipeline {
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
     CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
     REPO_NAME = sh ( script: "basename `git rev-parse --show-toplevel`", returnStdout: true).trim()
+    sh 'env | sort'
   }
   stages {
     stage('Check syntax') {
       steps {
-        sh 'env | sort'
         sh 'molecule syntax'
       }
     }
