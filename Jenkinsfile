@@ -16,8 +16,6 @@ pipeline {
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
-    CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
-    REPO_NAME = sh ( script: "basename `git rev-parse --show-toplevel`", returnStdout: true).trim()
   }
   stages {
     stage('Show variables') {
@@ -47,11 +45,11 @@ pipeline {
         sh 'molecule verify'
       }
     }
-  stage('Merge Pull Request'){
+    stage('Merge Pull Request'){
       when { branch "PR-*" }
       steps {
           withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'ACCESS_TOKEN_PASSWORD']]) {
-                    sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}' -c cookieFile -b cookieFile https://github.com/repos/SoInteractive/$REPO_NAME/pulls/$CHANGE_ID/merge?access_token=$ACCESS_TOKEN_PASSWORD"
+            sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}' -c cookieFile -b cookieFile https://github.com/repos/SoInteractive/${JOB_NAME.split('/')[1]}/pulls/${BRANCH_NAME.replaceFirst('PR-', "")}/merge?access_token=${ACCESS_TOKEN_PASSWORD}"
         }
       }
     }
