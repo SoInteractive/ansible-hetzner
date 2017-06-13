@@ -42,15 +42,14 @@ pipeline {
         sh 'molecule verify'
       }
     }
-/*  stage('Merge Pull Request'){
-      when { branch "*" }
+  stage('Merge Pull Request'){
+      when { branch "PR-*" }
       steps {
-         def CHANGE_ID = BRANCH_NAME.replaceFirst(/^PR-/, "")
-         withCredentials([usernamePassword(credentialsId: 'credential-value', usernameVariable: 'ACCESS_TOKEN_USERNAME', passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
+         withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'ACCESS_TOKEN_USERNAME', passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
                     sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}'  https://github.ibm.com/api/v3/repos/org-name/repo-name/pulls/$CHANGE_ID/merge?access_token=$ACCESS_TOKEN_PASSWORD"
         }
       }
-    }*/
+    }
 /*  stage('Import to ansible galaxy'){
       when { branch "PR-*" }
       steps {
