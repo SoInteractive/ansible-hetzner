@@ -23,7 +23,7 @@ pipeline {
   stages {
     stage('Show variables') {
       steps {
-        echo "[[0,1,0],${LAST_TAG}.split('.')].transpose()*.sum().join('.')"
+        echo [[0,1,0],"${LAST_TAG}".split('.')].transpose()*.sum().join('.')
         sh 'env | sort'
       }
     }
