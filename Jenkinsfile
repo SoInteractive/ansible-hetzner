@@ -16,12 +16,12 @@ pipeline {
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
+    CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
   }
   stages {
     stage('Check syntax') {
       steps {
         sh 'env | sort'
-        def CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
         sh 'echo $CHANGE_ID'
         sh 'molecule syntax'
       }
