@@ -2,12 +2,6 @@
 
 /* Declarative pipeline */
 pipeline {
-  triggers {
-      githubPullRequest {
-        cron('H/1 * * * *')
-//        whiteListTargetBranches(['master','test', 'test2'])
-        }
-  }
   agent {
     node {
       label 'master'
