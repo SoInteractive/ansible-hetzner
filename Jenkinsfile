@@ -16,7 +16,7 @@ pipeline {
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
-    REPO_SHORT_NAME=${JOB_NAME.split('/')[1]
+    REPO_SHORT_NAME=${JOB_NAME.split('/')[1]}
   }
   stages {
     stage('Check syntax') {
