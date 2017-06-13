@@ -18,7 +18,7 @@ pipeline {
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
     CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
     REPO_NAME = sh ( script: "basename `git rev-parse --show-toplevel`", returnStdout: true).trim()
-    ORG_NAME = sh ( script: " echo $GIT_URL | cut -f 4 -d'/'", return Stdout: true).trin()
+    ORG_NAME = sh ( script: " echo $GIT_URL | cut -f 4 -d'/'", return Stdout: true).trim()
   }
   stages {
     stage('Check syntax') {
