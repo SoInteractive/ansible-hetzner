@@ -20,6 +20,7 @@ pipeline {
   stages {
     stage('Check syntax') {
       steps {
+        sh 'env | sort'
         sh 'molecule syntax'
       }
     }
@@ -40,7 +41,7 @@ pipeline {
       }
     }
   stage('Merge Pull Request'){
-      when { branch "PR-*" }
+      when { branch "*" }
       steps {
         mergeGithubPullRequest {
           mergeComment('merged by Jenkins')
