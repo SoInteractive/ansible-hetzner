@@ -45,7 +45,7 @@ pipeline {
   stage('Merge Pull Request'){
       when { branch "PR-*" }
       steps {
-          withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'ACCESS_TOKEN_PASSWORD']]) {
+          withCredentials([[$class: 'StringBinding', credentialsId: 'githubtoken', variable: 'ACCESS_TOKEN_PASSWORD']]) {
                     sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}'  https://github.ibm.com/api/v3/repos/org-name/repo-name/pulls/$CHANGE_ID/merge?access_token=$ACCESS_TOKEN_PASSWORD"
         }
       }
