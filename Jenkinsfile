@@ -19,6 +19,11 @@ pipeline {
     REPO_SHORT_NAME=${JOB_NAME.split('/')[1]}
   }
   stages {
+    stage('Show envs') {
+      steps {
+        sh 'env | sort'
+      }
+    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
