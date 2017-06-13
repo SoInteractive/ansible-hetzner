@@ -18,7 +18,7 @@ pipeline {
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
     CHANGE_ID = env.BRANCH_NAME.replaceFirst(/^PR-/, "")
     GITURL = GIT_URL.replaceFirst( "^http://github.com/", "")
-    PRLINK = GITURL.replaceAll( /.git/, "")​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+    PRLINK = env.GITURL.replaceAll( /.git/, "")​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
   }
   stages {
     stage('Check syntax') {
