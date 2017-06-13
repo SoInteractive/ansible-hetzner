@@ -16,7 +16,10 @@ pipeline {
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
-    LAST_TAG = sh( script: "git tag", returnStdout: true ).split('\n').last().trim().split('.')
+    LAST_TAG1 = sh( script: "git tag", returnStdout: true )
+    LAST_TAG2 = sh( script: "git tag", returnStdout: true ).split('\n')
+    LAST_TAG3 = sh( script: "git tag", returnStdout: true ).split('\n').last()
+    LAST_TAG = sh( script: "git tag", returnStdout: true ).split('\n').last().split('.')
     //LAST_TAG = sh( script: "git tag", returnStdout: true ).truncate('\n.')[-1:-3]
   }
   stages {
