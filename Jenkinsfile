@@ -18,6 +18,12 @@ pipeline {
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
   }
   stages {
+    stage('Show envs'){
+      steps {
+        sh 'env | sort'
+      }
+    }
+
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
@@ -55,7 +61,7 @@ pipeline {
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: 'github-access-token', variable: 'GITHUB_TOKEN']]) {
           sh 'ansible-galaxy login --github-token $GITHUB_TOKEN'
-          sh 'ansible-galaxy import SoInteractive $JOB_BASE_NAME'
+          sh 'ansible-galaxy import SoInteractive $???'
         }
       }
     }*/
@@ -66,7 +72,7 @@ pipeline {
       sh 'molecule destroy'
     }
     success {
-      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <https://github.com/SoInteractive/${JOB_BASE_NAME}/tree/${BRANCH_NAME}|${JOB_NAME}> branch by ${GIT_COMMITER} finished successfully in ${currentBuild.durationString.replaceAll('and counting','')}"
+      mattermostSend color: 'good', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <https://github.com/SoInteractive/${JOB_NAME}/tree/${BRANCH_NAME}|${JOB_NAME}> branch by ${GIT_COMMITER} finished successfully in ${currentBuild.durationString.replaceAll('and counting','')}"
     }
     failure {
       mattermostSend color: 'danger', message: "Pipeline <${RUN_DISPLAY_URL}|#${BUILD_NUMBER}> of <${GIT_URL}|${JOB_NAME}> branch by ${GIT_COMMITER} failed in ${currentBuild.durationString.replaceAll('and counting','')}"
