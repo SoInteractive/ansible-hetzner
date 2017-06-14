@@ -49,12 +49,11 @@ pipeline {
       when { branch "master" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
-          // Magic below bumps middle tag number
           sh "git tag ${NEW_TAG}"
           sh 'git push https://${GITHUB_TOKEN}:@${GIT_URL} --tags'
         }
       }
-    }*/
+    }
 /*  stage('Import to ansible galaxy'){
       when { branch "master" }
       steps {
