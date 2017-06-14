@@ -50,15 +50,15 @@ pipeline {
         }
       }
     }
-/*  stage('Import to ansible galaxy'){
+  stage('Import to ansible galaxy'){
       when { branch "master" }
       steps {
-        withCredentials([[$class: 'StringBinding', credentialsId: 'github-access-token', variable: 'GITHUB_TOKEN']]) {
+        withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
           sh 'ansible-galaxy login --github-token $GITHUB_TOKEN'
           sh 'ansible-galaxy import SoInteractive ${JOB_NAME.split('/')[1]}'
         }
       }
-    }*/
+    }
   }
 
   post {
