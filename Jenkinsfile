@@ -46,7 +46,7 @@ pipeline {
           sh '''
             git tag $(git tag | tail -n1 | awk -F '.' '{print $1"."$2"."($3+1)}')
           '''
-          sh 'git push https://${GITHUB_TOKEN}:@${GIT_URL} --tags'
+          sh 'git push https://${GITHUB_TOKEN}:@${GIT_URL.replace( 'https://', '')} --tags'
         }
       }
     }
