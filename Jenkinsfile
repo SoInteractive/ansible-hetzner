@@ -23,10 +23,10 @@ pipeline {
   stages {
     stage('Show variables') {
       steps {
-        script { 
-          echo [[0,1,0],${LAST_TAG}.split('.')].transpose()*.sum().join('.')
-        }
         sh 'env | sort'
+        script { 
+          echo [[0,1,0],env.LAST_TAG.split('.')].transpose()*.sum()
+        }
       }
     }
     stage('Check syntax') {
