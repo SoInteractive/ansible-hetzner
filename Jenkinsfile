@@ -49,16 +49,8 @@ pipeline {
         sh 'molecule verify'
       }
     }
-    stage('Merge Pull Request'){
-      when { branch "PR-*" }
-      steps {
-        withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
-          sh "curl -X PUT -d '{\"commit_title\": \"Merge pull request\"}' https://api.github.com/repos/SoInteractive/${JOB_NAME.split('/')[1]}/pulls/${BRANCH_NAME.replaceFirst('PR-', "")}/merge?access_token=${GITHUB_TOKEN}"
-        }
-      }
-    }
 /*    stage('New feature release'){
-      when { branch "feature*" }
+      when { branch "master" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
           // Magic below bumps middle tag number
@@ -68,7 +60,7 @@ pipeline {
       }
     }*/
 /*  stage('Import to ansible galaxy'){
-      when { branch "PR-*" }
+      when { branch "master" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: 'github-access-token', variable: 'GITHUB_TOKEN']]) {
           sh 'ansible-galaxy login --github-token $GITHUB_TOKEN'
