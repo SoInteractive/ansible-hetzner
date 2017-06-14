@@ -58,8 +58,8 @@ pipeline {
           sh 'ansible-galaxy import SoInteractive ${JOB_NAME.split('/')[1]}'
         }
       }
-    }
-  }*/
+    }*/
+  }
 
   post {
     always {
