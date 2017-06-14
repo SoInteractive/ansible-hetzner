@@ -5,7 +5,7 @@ pipeline {
   agent {
     node {
       label 'master'
-      customWorkspace 'workspace/hetzner'
+      customWorkspace "workspace/${JOB_NAME.split('/')[1]}"
     }
   }
   options {
@@ -50,7 +50,7 @@ pipeline {
         }
       }
     }
-  stage('Import to ansible galaxy'){
+    stage('Import to ansible galaxy'){
       when { branch "master" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
