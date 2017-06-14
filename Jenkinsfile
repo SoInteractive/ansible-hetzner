@@ -24,8 +24,9 @@ pipeline {
     stage('Show variables') {
       steps {
         sh 'env | sort'
-        script { 
-          echo [[0,1,0],env.LAST_TAG.split('.')].transpose()*.sum()
+        script {
+          def NEW_TAG = [[0,1,0],env.LAST_TAG.split('.')].transpose()*.sum().join('.')
+          echo ${NEW_TAG}
         }
       }
     }
