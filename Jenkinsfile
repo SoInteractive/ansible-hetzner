@@ -16,7 +16,7 @@ pipeline {
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
-    NEW_TAG = sh( script: "git tag | tail -n1 | awk -F '.' '{print $1\".\"$2\".\"($3+1)}'", returnStdout: true )
+    NEW_TAG = sh( script: "git tag | tail -n1 | awk -F '.' '{print \$1\".\"\$2\".\"(\$3+1)}'", returnStdout: true )
   }
   stages {
     stage('Show variables') {
