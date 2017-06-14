@@ -19,8 +19,11 @@ pipeline {
   }
   stages {
     stage('Show variables') {
-      steps {
+      steps {        
         sh 'env | sort'
+        sh '''
+          git tag $(git tag | tail -n1 | awk -F '.' '{print $1"."$2"."($3+1)}')
+        '''
       }
     }
     stage('Check syntax') {
