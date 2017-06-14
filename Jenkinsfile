@@ -16,15 +16,12 @@ pipeline {
   environment {
     GIT_COMMITER = sh( script: "git show -s --pretty=%an", returnStdout: true ).trim()
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
-    //LAST_TAG3 = sh( script: "git tag", returnStdout: true ).tokenize('\n.').takeRight(3)
-    LAST_TAG = sh( script: "git tag", returnStdout: true ).split('\n').last()
-    //LAST_TAG = sh( script: "git tag", returnStdout: true ).truncate('\n.')[-1:-3]
+    NEW_TAG = sh( script: "git tag | tail -n1 | awk -F '.' '{print $1\".\"$2\".\"($3+1)}'", returnStdout: true )
   }
   stages {
     stage('Show variables') {
       steps {
         sh 'env | sort'
-
       }
     }
     stage('Check syntax') {
@@ -42,19 +39,18 @@ pipeline {
         sh 'molecule converge'
       }
     }
-    
     stage('Run Tests'){
       steps {
         sh 'molecule idempotence'
         sh 'molecule verify'
       }
     }
-/*    stage('New feature release'){
+    stage('New feature release'){
       when { branch "master" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
           // Magic below bumps middle tag number
-          sh "git tag ${[[0,1,0],LAST_TAG.split('.')].transpose()*.sum().join('.')}"
+          sh "git tag ${NEW_TAG}"
           sh 'git push https://${GITHUB_TOKEN}:@${GIT_URL} --tags'
         }
       }
