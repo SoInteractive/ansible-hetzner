@@ -18,14 +18,6 @@ pipeline {
     GIT_URL = sh( script: "git config --get remote.origin.url", returnStdout: true ).trim()
   }
   stages {
-    stage('Show variables') {
-      steps {        
-        sh 'env | sort'
-        sh '''
-          git tag $(git tag | tail -n1 | awk -F '.' '{print $1"."$2"."($3+1)}')
-        '''
-      }
-    }
     stage('Check syntax') {
       steps {
         sh 'molecule syntax'
@@ -47,7 +39,7 @@ pipeline {
         sh 'molecule verify'
       }
     }
-    stage('New feature release'){
+    stage('Add new tag and push it to repository'){
       when { branch "master" }
       steps {
         withCredentials([[$class: 'StringBinding', credentialsId: '84b13c41-cc5e-4802-b057-e85c232d347b', variable: 'GITHUB_TOKEN']]) {
@@ -66,8 +58,8 @@ pipeline {
           sh 'ansible-galaxy import SoInteractive ${JOB_NAME.split('/')[1]}'
         }
       }
-    }*/
-  }
+    }
+  }*/
 
   post {
     always {
