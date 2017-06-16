@@ -1,0 +1,32 @@
+---
+- name: destroy partition on disks
+  command: "dd if=/dev/urandom of=/dev/{{ item }} bs=4K count=1024"
+  with_items: "{{ hetzner_provision_drives }}"
+  when: hetzner_destroy == "yes"
+
+- name: copy installimage config
+  template:
+    src: installimage.j2
+    dest: /tmp/conf
+
+- name: Using btrfs causes installimage hang
+  fail:
+    msg: "Run this command on hosts: /root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
+  when: hetzner_provision_partitions.find("btrfs") != -1
+
+- name: install system
+  command: "/root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
+  when: hetzner_destroy == "yes"
+
+- name: reboot
+  command: reboot
+  when: hetzner_destroy == "yes"
+
+- name: wait for system reboot
+  local_action:
+    module: wait_for
+    port: 22
+    host: "{{ ansible_host|default(ansible_ssh_host|default(inventory_hostname)) }}"
+    search_regex: OpenSSH
+    delay: 10
+    state: started

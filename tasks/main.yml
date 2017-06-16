@@ -1,21 +1,5 @@
 ---
-- block:
-  - name: destroy partition on disks
-    command: "dd if=/dev/urandom of=/dev/{{ item }} bs=4K count=1024"
-    with_items: "{{ hetzner_provision_drives }}"
-    when: continue == "yes"
-
-  - name: copy installimage config
-    template:
-      src: installimage.j2
-      dest: /tmp/conf
-
-  - name: install system
-    command: "/root/.oldroot/nfs/install/installimage -a -c /tmp/conf"
-    when: continue == "yes"
-
-  - name: reboot
-    command: reboot
+- include: installimage.yml
   when: ansible_nodename == "rescue"
 
 - debug: msg="System is not in rescue mode, aborting!"
