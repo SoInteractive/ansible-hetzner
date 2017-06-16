@@ -1,6 +1,6 @@
 ---
-- name: destroy partition on disks
-  command: "dd if=/dev/urandom of=/dev/{{ item }} bs=4K count=1024"
+- name: destroy partitions on disks
+  command: "dd if=/dev/urandom of=/dev/{{ item }} bs=512 count=1"
   with_items: "{{ hetzner_provision_drives }}"
   when: hetzner_destroy == "yes"
 
