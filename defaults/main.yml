@@ -1,4 +1,6 @@
 ---
+hetzner_destroy: "no"
+
 hetzner_provision_image: ""
 hetzner_provision_os: ubuntu
 

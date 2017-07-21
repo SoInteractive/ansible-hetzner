@@ -4,14 +4,10 @@ DRIVE{{ loop.index }} /dev/{{ drive }}
 {% endfor %}
 
 SWRAID {{ 1 if hetzner_provision_raid_enable else 0 }}
-SWRAIDLEVEL {{ hetzner_provision_raid_type |defaults('1') }}
+SWRAIDLEVEL {{ hetzner_provision_raid_type |default('1') }}
 
 BOOTLOADER grub
 HOSTNAME {{ hetzner_provision_hostname }}
-
-{% for partition in hetzner_provision_partitions %}
-{{ partition }}
-{% endfor %}
 
 {% for partition in hetzner_provision_partitions %}
 PART {{ partition.mount }} {{ partition.type }} {{ partition.size }}
