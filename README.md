@@ -3,7 +3,7 @@
 Ansible Role: Hetzner
 =====================
 
-[![Build Status](https://ci.devops.sosoftware.pl/buildStatus/icon?job=SoInteractive/hetzner/master)](https://ci.devops.sosoftware.pl/blue/organizations/jenkins/SoInteractive%2Fhetzner/activity) [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Ansible Role](https://img.shields.io/ansible/role/18270.svg)](https://galaxy.ansible.com/SoInteractive/hetzner/) [![Twitter URL](https://img.shields.io/twitter/follow/sointeractive.svg?style=social&label=Follow%20%40SoInteractive)](https://twitter.com/sointeractive)
+[![Build Status](https://travis-ci.org/SoInteractive/ansible-hetzner.svg?branch=master)](https://travis-ci.org/SoInteractive/ansible-hetzner) [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Ansible Role](https://img.shields.io/badge/ansible%20role-SoInteractive.hetzner-blue.svg)](https://galaxy.ansible.com/SoInteractive/hetzner/) [![GitHub tag](https://img.shields.io/github/tag/sointeractive/ansible-hetzner.svg)](https://github.com/SoInteractive/ansible-hetzner/tags) [![Twitter URL](https://img.shields.io/twitter/follow/sointeractive.svg?style=social&label=Follow%20%40SoInteractive)](https://twitter.com/sointeractive)
 
 Role will partition disks and install Ubuntu 16.04 (default) or CentOS7
 
