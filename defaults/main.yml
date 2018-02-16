@@ -8,7 +8,7 @@ hetzner_provision_drives:
   - sda
   - sdb
 
-# 
+# hetzner_postinstall_script: "/root/.oldroot/nfs/install/post-install/proxmox5"
 hetzner_postinstall_script: ""
 
 hetzner_provision_raid_enable: false
