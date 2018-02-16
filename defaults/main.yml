@@ -13,26 +13,21 @@ hetzner_provision_raid_type: 1
 hetzner_provision_hostname: "{{ inventory_hostname }}.sosoftware.pl"
 
 hetzner_provision_partitions:
-  - boot:
-      mount: /boot
-      type: ext3
-      size: 1G
-  - root:
-      mount: /
-      type: ext4
-      size: 10G
-  - var:
-      mount: /var
-      type: ext4
-      size: 8G
-  - varlog:
-      mount: /var/log
-      type: ext4
-      size: 8G
-  - containers:
-      mount: /var/lib/docker
-      type: btrfs
-      size: all
+  - mount: /boot
+    type: ext3
+    size: 1G
+  - mount: /
+    type: ext4
+    size: 10G
+  - mount: /var
+    type: ext4
+    size: 8G
+  - mount: /var/log
+    type: ext4
+    size: 8G
+  - mount: /var/lib/docker
+    type: btrfs
+    size: all
 
 hetzner_provision_volumes: []
 #  - log:
