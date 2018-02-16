@@ -8,6 +8,9 @@ hetzner_provision_drives:
   - sda
   - sdb
 
+# 
+hetzner_postinstall_script: ""
+
 hetzner_provision_raid_enable: false
 hetzner_provision_raid_type: 1
 hetzner_provision_hostname: "{{ inventory_hostname }}.sosoftware.pl"
