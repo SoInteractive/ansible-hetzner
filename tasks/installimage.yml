@@ -15,7 +15,7 @@
 #  when: hetzner_provision_partitions.find("btrfs") != -1
 
 - name: install system
-  command: "/root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
+  command: "/root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes {{ '-x ' + hetzner_postinstall_script if hetzner_postinstall_script != '' else '' }}"
   when: hetzner_destroy
 
 - name: reboot
