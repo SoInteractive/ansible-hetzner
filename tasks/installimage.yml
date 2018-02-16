@@ -2,7 +2,7 @@
 - name: destroy partitions on disks
   command: "dd if=/dev/urandom of=/dev/{{ item }} bs=512 count=1"
   with_items: "{{ hetzner_provision_drives }}"
-  when: hetzner_destroy == "yes"
+  when: hetzner_destroy
 
 - name: copy installimage config
   template:
@@ -16,11 +16,11 @@
 
 - name: install system
   command: "/root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
-  when: hetzner_destroy == "yes"
+  when: hetzner_destroy
 
 - name: reboot
   command: reboot
-  when: hetzner_destroy == "yes"
+  when: hetzner_destroy
 
 - name: wait for system reboot
   local_action:
