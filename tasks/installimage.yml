@@ -9,10 +9,10 @@
     src: installimage.j2
     dest: /tmp/conf
 
-- name: Using btrfs causes installimage hang
-  fail:
-    msg: "Run this command on hosts: /root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
-  when: hetzner_provision_partitions.find("btrfs") != -1
+#- name: Using btrfs causes installimage hang
+#  fail:
+#    msg: "Run this command on hosts: /root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
+#  when: hetzner_provision_partitions.find("btrfs") != -1
 
 - name: install system
   command: "/root/.oldroot/nfs/install/installimage -a -c /tmp/conf -t yes"
