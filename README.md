@@ -7,6 +7,10 @@ Ansible Role: Hetzner
 
 Role will partition disks and install Ubuntu 16.04 (default) or CentOS7
 
+# :warning: IMPORTANT NOTICE
+
+THIS PROJECT IS ABANDONED. WE DO NOT ACCEPT ANY NEW ISSUES AND/OR PULL REQUESTS.
+
 Disclaimer
 ----------
 
